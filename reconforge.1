@@ -1,0 +1,41 @@
+.TH RECONFORGE 1 "March 2026" "v1.0.0" "ReconForge Manual"
+.SH NAME
+reconforge \- Comprehensive Web Vulnerability Meta Scanner
+.SH SYNOPSIS
+.B reconforge
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+.B ReconForge
+is a Python-based web vulnerability meta scanner that automates Dynamic Application Security Testing (DAST). It orchestrates multiple security scanners (Nuclei, Nikto, Wapiti, ZAP, Skipfish) and aggregates their results into a single vulnerability report. By default, it runs in verbose mode showing all scanner output.
+.SH OPTIONS
+.TP
+.BR \-t ", " \-\-target " \fIURL\fR"
+Target URL to scan (e.g., https://example.com). This option is required.
+.TP
+.BR \-S ", " \-\-scanners " \fISCANNER_LIST\fR"
+Space-separated list of scanners to run. Options: nuclei, nikto, wapiti, zap, skipfish. Default is all.
+.TP
+.BR \-si ", " \-\-silent
+Silent mode. Hide scanner output and show a progress bar instead.
+.TP
+.BR \-o ", " \-\-output\-dir " \fIDIR\fR"
+Directory to save scan results. Default is 'reports'.
+.TP
+.BR \-h ", " \-\-help
+Display help message and exit.
+.SH EXAMPLES
+.TP
+.B reconforge -t https://example.com
+Run all scanners against example.com in verbose mode.
+.TP
+.B reconforge -t https://example.com -si
+Run all scanners against example.com in silent mode with a progress bar.
+.TP
+.B reconforge -t https://example.com -S nuclei zap
+Run only Nuclei and ZAP scanners.
+.SH AUTHOR
+Developed by syn9 (https://github.com/ashwyni-mishra).
+.SH REPORTING BUGS
+Report bugs to the GitHub repository: https://github.com/ashwyni-mishra/reconForge/issues
+.SH COPYRIGHT
+This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.

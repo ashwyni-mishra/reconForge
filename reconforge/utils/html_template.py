@@ -1,0 +1,147 @@
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReconForge - Vulnerability Report</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #3b82f6;
+            --high: #ef4444;
+            --medium: #f59e0b;
+            --low: #10b981;
+            --info: #3b82f6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .summary-card.high { border-top: 4px solid var(--high); }
+        .summary-card.medium { border-top: 4px solid var(--medium); }
+        .summary-card.low { border-top: 4px solid var(--low); }
+        .summary-card.info { border-top: 4px solid var(--info); }
+
+        .count { font-size: 2.5rem; font-weight: bold; margin-bottom: 5px; }
+        .label { color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+
+        .vulnerability-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+
+        .vulnerability-card:hover { transform: translateY(-2px); }
+
+        .vuln-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .severity-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .severity-badge.high { background: rgba(239, 68, 68, 0.2); color: var(--high); }
+        .severity-badge.medium { background: rgba(245, 158, 11, 0.2); color: var(--medium); }
+        .severity-badge.low { background: rgba(16, 185, 129, 0.2); color: var(--low); }
+        .severity-badge.info { background: rgba(59, 130, 246, 0.2); color: var(--info); }
+
+        .vuln-title { font-size: 1.25rem; font-weight: bold; color: #fff; }
+        .scanner-info { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 10px; }
+        .description { color: #cbd5e1; }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ReconForge Scan Report</h1>
+            <p style="color: var(--text-dim)">Target: <strong>{{ target }}</strong> | Date: {{ date }}</p>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card high"><div class="count">{{ counts.high }}</div><div class="label">High</div></div>
+            <div class="summary-card medium"><div class="count">{{ counts.medium }}</div><div class="label">Medium</div></div>
+            <div class="summary-card low"><div class="count">{{ counts.low }}</div><div class="label">Low</div></div>
+            <div class="summary-card info"><div class="count">{{ counts.info }}</div><div class="label">Info</div></div>
+        </div>
+
+        {% for vuln in vulnerabilities %}
+        <div class="vulnerability-card">
+            <div class="vuln-header">
+                <span class="vuln-title">{{ vuln.issue }}</span>
+                <span class="severity-badge {{ vuln.severity }}">{{ vuln.severity }}</span>
+            </div>
+            <div class="scanner-info">Detected by: <strong>{{ vuln.scanner }}</strong></div>
+            <div class="description">{{ vuln.description }}</div>
+        </div>
+        {% endfor %}
+
+        <div class="footer">
+            Generated by ReconForge (syn9) | https://github.com/ashwyni-mishra/reconForge
+        </div>
+    </div>
+</body>
+</html>
+"""

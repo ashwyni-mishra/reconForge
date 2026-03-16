@@ -1,0 +1,11 @@
+#!/usr/bin/env /opt/reconforge/venv/bin/python3
+import sys
+import os
+
+# Add the project root to sys.path so the 'reconforge' package can be imported
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
+from reconforge.core import main
+
+if __name__ == "__main__":
+    main()

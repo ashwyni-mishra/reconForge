@@ -1,0 +1,9 @@
+# ReconForge Requirements
+customtkinter
+python-owasp-zap-v2.4
+jinja2
+matplotlib
+beautifulsoup4
+pillow
+requests
+rich
